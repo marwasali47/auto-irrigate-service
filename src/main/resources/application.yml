@@ -1,0 +1,43 @@
+server:
+  port: 9999
+
+sensor:
+  api-url: http://localhost:9999/sensor/irrigate
+
+alerting:
+  api-url: http://localhost:9999/alerting/alert
+
+# retry template configuration
+retry:
+  maxAttempts:  3
+  maxDelay : 500
+
+# Database migration configuration
+flyway:
+  migration:
+    sample:
+      data:
+        enabled: true
+        folder: db/samples
+    schema:
+      folder: db/migration
+
+# Data source  configuration
+database:
+  driver: org.postgresql.Driver
+  url: jdbc:postgresql://localhost:5432/test
+  username: postgres
+  password: admin
+  hibernate:
+    dialect: org.hibernate.dialect.ProgressDialect
+    show_sql: false
+  db: # Available db.development.migration strategies: cleanMigrate, migrate
+    migration:
+      strategy: migrate
+  connection: # Connection pooling configuration
+    pool:
+      max:
+        size: 15
+
+logging:
+  config: 'classpath:log4j2-dev.xml'
